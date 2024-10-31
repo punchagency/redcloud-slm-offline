@@ -1,37 +1,61 @@
-import { Tabs } from 'expo-router';
+// app/tabs/_layout.tsx
 import React from 'react';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { useTheme } from 'react-native-paper';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
+import Index from '.';
+import TabTwoScreen from './explore';
 
-import { TabBarIcon } from '@/components/navigation/TabBarIcon';
-import { Colors } from '@/constants/Colors';
-import { useColorScheme } from '@/hooks/useColorScheme';
+const Tab = createBottomTabNavigator();
 
 export default function TabLayout() {
-  const colorScheme = useColorScheme();
+  const theme = useTheme();
 
   return (
-    <Tabs
+    <Tab.Navigator
       screenOptions={{
-        tabBarActiveTintColor: Colors[colorScheme ?? 'light'].tint,
+        tabBarActiveTintColor: theme.colors.primary,
+        tabBarInactiveTintColor: theme.colors.onSurface,
         headerShown: false,
-      }}>
-      <Tabs.Screen
-        name="index"
+      }}
+    >
+      <Tab.Screen
+        name="Home"
+        component={Index}
         options={{
           title: 'Home',
           tabBarIcon: ({ color, focused }) => (
-            <TabBarIcon name={focused ? 'home' : 'home-outline'} color={color} />
+            <MaterialCommunityIcons
+              name={focused ? 'home' : 'home-outline'}
+              color={color}
+              size={24}
+            />
           ),
         }}
       />
-      <Tabs.Screen
-        name="explore"
+      <Tab.Screen
+        name="Explore"
+        component={TabTwoScreen}
         options={{
           title: 'Explore',
           tabBarIcon: ({ color, focused }) => (
-            <TabBarIcon name={focused ? 'code-slash' : 'code-slash-outline'} color={color} />
+            <MaterialCommunityIcons
+              name={focused ? 'compass' : 'compass-outline'}
+              color={color}
+              size={24}
+            />
           ),
         }}
       />
-    </Tabs>
+    </Tab.Navigator>
   );
+}
+
+// Temporary placeholders for HomeScreen and ExploreScreen
+function HomeScreen() {
+  return null;
+}
+
+function ExploreScreen() {
+  return null;
 }
