@@ -6,6 +6,10 @@ npm-debug.*
 *.p8
 *.p12
 *.key
+*.bin
+*.tar
+*.gz
+*.tflite
 *.mobileprovision
 *.orig.*
 web-build/

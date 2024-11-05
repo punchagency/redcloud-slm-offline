@@ -1,6 +1,16 @@
 // App.js
 import React, { useState } from 'react';
 import { SafeAreaView, View, Text, StyleSheet, TextInput, TouchableOpacity } from 'react-native';
+import { loadTensorflowModel } from 'react-native-fast-tflite';
+import { useLlmInference } from 'react-native-llm-mediapipe';
+
+const model = loadTensorflowModel(require('../../assets/models/distilgpt2-small-64-fp16.tflite'))
+const llmInference = useLlmInference({
+  storageType: 'asset',
+  modelName: 'gemma-2b-it-cpu-int4.bin',
+  // 'gemma-1.1-2b-it-gpu-int4.bin' or the name of the model that
+  // you placed at android/app/src/main/assets/{MODEL_FILE}
+});
 
 const Index = () => {
   const [inputText, setInputText] = useState('');
